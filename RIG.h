@@ -1,5 +1,9 @@
 #ifndef RIG_H
 #define RIG_H
+//note these implement a flattened 2d array
+#define setBit(i,j) (RIG[(((i*numOfNodes)+j)/32)] |= (1 << ((i*numOfNodes+j)%32)) ) 
+#define clearBit(i,j)   ( RIG[(((i*numOfNodes)+j)/32)] &= ~(1 << ((i*numOfNodes+j)%32)) )  
+#define checkBit(i,j)  ( RIG[(((i*numOfNodes)+j)/32)] & (1 << ((i*numOfNodes+j)%32)) )
 
 /*
  *Here we declared the datastructures used to build the register interference graph
@@ -16,12 +20,19 @@ struct variableList {
 	struct variableList * next;
 };
 
-struct variableList *listOfAllVariables;
+//global variables
 
-void initListOfAllVariables();
+int *RIG;
+struct variableList *listOfAllVariables;
+int numOfNodes;
+
+void initRIG();
+void createRIG();
 struct variable *newVariable();
 struct variableList *newVariableList();
 void addToVarList(struct variableList **varList, struct variable *var);
 struct variable *findVariable(char *var);
+
+void printRIG();
 
 #endif

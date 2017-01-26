@@ -4,10 +4,12 @@
 
 int main()
 {
-	struct variable *firstVar = newVariable();
-	struct variable *secondVar = newVariable();
-	struct variableList *newVarList = NULL;
-	addToVarList(&newVarList, firstVar);
-	addToVarList(&newVarList, secondVar);
-	return 0;
+    initRIG();
+    numOfNodes = 10;
+    createRIG();
+    setBit(0, 9);
+    setBit(2, 9);
+    setBit(7, 2);
+    printRIG();
+    return 0;
 }

@@ -3,12 +3,22 @@
  */
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "RIG.h"
 
-
-void initListOfAllVariables()
+void initRIG()
 {
 	listOfAllVariables = NULL;
+    numOfNodes = 0;
+    RIG = NULL;
+}
+
+void createRIG()
+{
+    int temp = numOfNodes;
+    temp = numOfNodes/32;
+    temp += numOfNodes%32 != 0;
+    RIG = (int *)malloc(2 * temp * sizeof(int));
 }
 
 //mallocs a struct variable and returns pointer
@@ -70,3 +80,19 @@ struct variable *findVariable(char *var)
 	return matchingVar;
 }
 
+void printRIG()
+{
+    int i, j;
+    for(i = 0; i < numOfNodes; i++)
+    {
+		for(j = 0; j < numOfNodes; j++)
+		{
+			int bit = checkBit(i,j);
+            if(bit)
+                printf("1 ");
+            else
+                printf("0 ");
+		}
+		printf("\n");
+    }
+}
