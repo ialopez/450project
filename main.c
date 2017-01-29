@@ -1,15 +1,19 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "RIG.h"
 
 int main()
 {
     initRIG();
-    numOfNodes = 10;
-    createRIG();
-    setBit(0, 9);
-    setBit(2, 9);
-    setBit(7, 2);
+
+    //read in number of nodes
+    char *str;
+    str = (char *)malloc(MAXSTRINGSIZE * sizeof(char));
+    fgets(str, MAXSTRINGSIZE, stdin);
+    numOfNodes = atoi(str);
+ 
+    createRIG();    
     printRIG();
     return 0;
 }
