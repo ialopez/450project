@@ -5,15 +5,15 @@
 
 int main()
 {
-    initRIG();
+    init_RIG();
 
     //read in number of nodes
     char *str;
     str = (char *)malloc(MAXSTRINGSIZE * sizeof(char));
     fgets(str, MAXSTRINGSIZE, stdin);
-    numOfNodes = atoi(str);
+    num_of_nodes = atoi(str);
  
-    createRIG();    
-    printRIG();
+    create_RIG();    
+    print_RIG();
     return 0;
 }

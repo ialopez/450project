@@ -6,88 +6,133 @@
 #include <stdio.h>
 #include "RIG.h"
 
-void initRIG()
+//initializes global variables in RIG.h
+void init_RIG()
 {
-	listOfAllVariables = NULL;
-    numOfNodes = 0;
+    list_of_variables = NULL;
+    num_of_nodes = 0;
     RIG = NULL;
 }
 
-void createRIG()
+//mallocs the bit array for RIG, then reads in edges from standard input and sets edges in RIG
+void create_RIG()
 {
-    int temp = numOfNodes;
-    temp = numOfNodes/32;
-    temp += numOfNodes%32 != 0;
-    RIG = (int *)malloc(2 * temp * sizeof(int));
+    //malloc a flattened 2d bit array
+    int size = num_of_nodes;
+    int temp = 0;
+    size = size * size;
+    temp = size % 32 != 0;
+    size = size / 32;
+    size += temp;
+    RIG = (int *)malloc(size * sizeof(int));
+    
+
+    create_variable_list();
+
+    //read in edges
+    char c;
+    while(c != EOF)
+    {
+        int dashSymbolRead = 0;
+        //read in first node
+        char first_node[MAXSTRINGSIZE];
+        int index = 0;
+        c = fgetc(stdin); 
+        while(c != EOF && c != '-' && c != '\n' )
+        { 
+            first_node[index] = c;
+            index++;
+            c = fgetc(stdin);
+        }
+        first_node[index] = '\0';
+        if( c == '-' )
+        {
+            dashSymbolRead = 1;
+        }
+        //read in second
+        char second_node[MAXSTRINGSIZE];
+        index = 0;
+        c = fgetc(stdin); 
+        while(c != EOF && c != '\n')
+        { 
+            second_node[index] = c;
+            index++;
+            c = fgetc(stdin);
+        }
+        second_node[index] = '\0';
+
+        //add edge to RIG
+        if(dashSymbolRead)
+        {
+            create_edge(first_node, second_node);
+        }
+
+    }
+}
+
+//takes in two nodes and create edge between them in the RIG
+void create_edge(char *first_node, char *second_node)
+{
+    int i, j;
+    i = atoi(first_node);
+    j = atoi(second_node);
+
+    SETBIT(i,j);
 }
 
 //mallocs a struct variable and returns pointer
-struct variable *newVariable()
+struct variable *new_variable()
 {
 	struct variable *var = (struct variable *)malloc(sizeof(struct variable));
 	var->name = NULL;
 	var->color = -1;
-	var->neighbors = NULL;
 	return var;
 }
 
-//mallocs a struct variableList and returns pointer
-struct variableList *newVariableList()
+//create an array with pointers to variables
+//variables are assumed to have to be named after numbers so if 
+//num_of_nodes = 10 then variables are 0,1,2...9
+void create_variable_list()
 {
-	struct variableList *varList = (struct variableList *)malloc(sizeof(struct variableList));
-	varList->var = NULL;
-	varList->next = NULL;
-	return varList;
+    int index = 0;
+    list_of_variables = malloc(num_of_nodes * sizeof(struct variable *));
+    char *name;
+    struct variable *temp;
+    int i;
+    for(i = 0; i < num_of_nodes; i++)
+    {
+        temp = new_variable();
+        name = (char *)malloc(MAXSTRINGSIZE * sizeof(char));
+        sprintf(name, "%d", i);
+        temp->name = name;
+    }
 }
 
-//adds a var to the end of a variable list
-void addToVarList(struct variableList **varList, struct variable *var)
-{	
-	//case when varlist is empty
-	if(*varList == NULL)
-	{
-		*varList = newVariableList();
-		(*varList)->var = var;
-	}
-	else
-	{
-		struct variableList *temp;
-		temp = *varList;
-
-		while(temp->next != NULL)
-		{
-			temp = temp->next;
-		}
-		temp->next = newVariableList();
-		temp->next->var = var;
-	}
-}
-
-struct variable *findVariable(char *var)
+/* redundant function
+int find_variable_index(char *var)
 {
-	struct variable *matchingVar = NULL;
-	struct variableList *temp;
-	temp = listOfAllVariables;
+    int index = 0;
 	while(temp != NULL)
 	{
-		if(strcmp(temp->var->name, var) == 0)
+		if(strcmp(temp->name, var) == 0)
 		{
-			matchingVar = temp->var;
-			return matchingVar;
+				return index;
 		}
 		temp = temp->next;
+        index++;
 	}
-	return matchingVar;
+	return -1;
 }
+*/
 
-void printRIG()
+void print_RIG()
 {
     int i, j;
-    for(i = 0; i < numOfNodes; i++)
+    for(i = 0; i < num_of_nodes; i++)
     {
-		for(j = 0; j < numOfNodes; j++)
+		for(j = 0; j < num_of_nodes; j++)
 		{
-			int bit = checkBit(i,j);
+			int bit = CHECKBIT(i,j);
             if(bit)
                 printf("1 ");
             else

@@ -1,38 +1,32 @@
 #ifndef RIG_H
 #define RIG_H
 //note these implement a flattened 2d array
-#define setBit(i,j) (RIG[(((i*numOfNodes)+j)/32)] |= (1 << ((i*numOfNodes+j)%32)) ) 
-#define clearBit(i,j)   ( RIG[(((i*numOfNodes)+j)/32)] &= ~(1 << ((i*numOfNodes+j)%32)) )  
-#define checkBit(i,j)  ( RIG[(((i*numOfNodes)+j)/32)] & (1 << ((i*numOfNodes+j)%32)) )
-
+#define SETBIT(i,j) (RIG[(((i*num_of_nodes)+j)/32)] |= (1 << ((i*num_of_nodes+j)%32)) ) 
+#define CLEARBIT(i,j)   ( RIG[(((i*num_of_nodes)+j)/32)] &= ~(1 << ((i*num_of_nodes+j)%32)) )  
+#define CHECKBIT(i,j)  ( RIG[(((i*num_of_nodes)+j)/32)] & (1 << ((i*num_of_nodes+j)%32)) )
+#define MAXSTRINGSIZE 40
 /*
  *Here we declared the datastructures used to build the register interference graph
  *Also functions that build RIG are declared here and defined in RIG.c
  */
 struct variable {
 	char * name;
-	int color;
-	struct variableList * neighbors;
-};
-
-struct variableList {
-	struct variable * var;
-	struct variableList * next;
+	int color;  
 };
 
 //global variables
 
 int *RIG;
-struct variableList *listOfAllVariables;
-int numOfNodes;
+struct variable *list_of_variables;
+int num_of_nodes;
 
-void initRIG();
-void createRIG();
-struct variable *newVariable();
-struct variableList *newVariableList();
-void addToVarList(struct variableList **varList, struct variable *var);
-struct variable *findVariable(char *var);
+void init_RIG();
+void create_RIG();
+void create_edge(char *firstNode, char *secondNode);
+struct variable *new_variable();
+void create_variable_list();
+//int find_variable_index(char *var);
 
-void printRIG();
+void print_RIG();
 
 #endif
