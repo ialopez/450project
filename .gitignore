@@ -1,4 +1,6 @@
 regalloc
-RIG.o
+*.o
+*.c.swp
+*.swp
 RIG.h.gch
 newtest.sh
