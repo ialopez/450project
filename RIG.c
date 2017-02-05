@@ -64,7 +64,9 @@ void create_RIG()
         //add edge to RIG
         if(dashSymbolRead)
         {
+            //create edges in both directions
             create_edge(first_node, second_node);
+            create_edge(second_node, first_node);
         }
 
     }
