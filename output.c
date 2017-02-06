@@ -13,7 +13,14 @@ void print_colors()
     {
         name = (&list_of_variables[i])->name;
         color = (&list_of_variables[i])->color;
-        printf("var: %s\tcolor: %d", name, color);
+        if(color == SPILLED)
+        {
+            printf("var: %s\t is spilled onto stack");
+        }
+        else
+        {
+            printf("var: %s\tcolor: %d", name, color);
+        }
     }
 }
 

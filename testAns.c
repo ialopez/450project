@@ -18,7 +18,7 @@ void test_ans()
             if(CHECKBIT(i,j))
             {
                 j_color = (&list_of_variables[j])->color;
-                if(i_color == j_color)
+                if(i_color != SPILLED && i_color == j_color)
                 {
                     printf("coloring is invalid solution");
                 }
@@ -26,4 +26,3 @@ void test_ans()
         }
     }
 }
-
