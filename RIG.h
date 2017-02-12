@@ -7,7 +7,9 @@
 #define CHECKBIT(i,j)  ( RIG[(((i*num_of_nodes)+j)/32)] & (1 << ((i*num_of_nodes+j)%32)) )
 
 #define MAXSTRINGSIZE 40
-#define SPILLED -2
+#define NO_COLOR -1
+#define REMOVED -2
+#define SPILLED -3
 
 /*
  *Here we declared the datastructures used to build the register interference graph
@@ -23,11 +25,13 @@ struct variable {
 int *RIG;
 struct variable *list_of_variables;
 int num_of_nodes;
+int k; //the amount of colors you can use to color the RIG
 
+//forwared declarations
 void init_RIG();
 void create_RIG();
 void create_edge(char *firstNode, char *secondNode);
-struct variable *new_variable();
+//struct variable *new_variable();
 void create_variable_list();
 //int find_variable_index(char *var);
 

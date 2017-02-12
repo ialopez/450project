@@ -82,31 +82,33 @@ void create_edge(char *first_node, char *second_node)
     SETBIT(i,j);
 }
 
+/*
 //mallocs a struct variable and returns pointer
 struct variable *new_variable()
 {
 	struct variable *var = (struct variable *)malloc(sizeof(struct variable));
 	var->name = NULL;
-	var->color = -1;
+	var->color = NO_COLOR;
 	return var;
 }
+*/
 
-//create an array with pointers to variables
+//create an array of variables
 //variables are assumed to have to be named after numbers so if 
 //num_of_nodes = 10 then variables are 0,1,2...9
 void create_variable_list()
 {
     int index = 0;
-    list_of_variables = malloc(num_of_nodes * sizeof(struct variable *));
+    list_of_variables = (struct variable *)malloc(num_of_nodes * sizeof(struct variable));
     char *name;
     struct variable *temp;
     int i;
     for(i = 0; i < num_of_nodes; i++)
-    {
-        temp = new_variable();
+    { 
         name = (char *)malloc(MAXSTRINGSIZE * sizeof(char));
         sprintf(name, "%d", i);
-        temp->name = name;
+        list_of_variables[i].name = name;
+        list_of_variables[i].color = NO_COLOR;
     }
 }
 
@@ -127,6 +129,7 @@ int find_variable_index(char *var)
 }
 */
 
+//prints the RIG in the form of a 2d adjacency matrix
 void print_RIG()
 {
     int i, j;
