@@ -4,6 +4,7 @@
 #include "RIG.h"
 #include "heuristic.h"
 #include "testAns.h"
+#include "spilling.h"
 
 int main()
 {
@@ -21,12 +22,13 @@ int main()
     //here we should read in k 
     //for now we just hardcode to let k be 16(the number of temporary
     //register in mips assembly)
-    k = 8;
+    k = 15;
 
     print_RIG();
 
     minimize_RIG(k);
     test_minimize_RIG();
+    spill_variable();
     //test_ans();
 
     return 0;

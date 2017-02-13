@@ -17,17 +17,18 @@
  */
 struct variable {
 	char * name;
-	int color;  
+	int color;
+    int neighbor_count;
 };
 
 //global variables
 
-int *RIG;
-struct variable *list_of_variables;
-int num_of_nodes;
-int k; //the amount of colors you can use to color the RIG
+extern int *RIG;
+extern struct variable *list_of_variables;
+extern int num_of_nodes;
+extern int k; //the amount of colors you can use to color the RIG
 
-//forwared declarations
+//forward declarations
 void init_RIG();
 void create_RIG();
 void create_edge(char *firstNode, char *secondNode);

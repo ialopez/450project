@@ -6,6 +6,11 @@
 #include <stdio.h>
 #include "RIG.h"
 
+int *RIG;
+struct variable *list_of_variables;
+int num_of_nodes;
+int k;
+
 //initializes global variables in RIG.h
 void init_RIG()
 {
@@ -80,6 +85,11 @@ void create_edge(char *first_node, char *second_node)
     j = atoi(second_node);
 
     SETBIT(i,j);
+
+    //increase neightbor count, only first_node neighbor count is increased
+    //because create edge is always called twice on a single edge in create_RIG
+    //function
+    list_of_variables[i].neighbor_count++;
 }
 
 /*
@@ -109,6 +119,7 @@ void create_variable_list()
         sprintf(name, "%d", i);
         list_of_variables[i].name = name;
         list_of_variables[i].color = NO_COLOR;
+        list_of_variables[i].neighbor_count = 0;
     }
 }
 
