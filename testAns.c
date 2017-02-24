@@ -22,15 +22,16 @@ void test_ans()
                 //spilled variables
                 if(i_color == NO_COLOR || i_color == REMOVED)
                 {
-                    printf("error there are uncolored or removed variables");
+                    printf("error there are uncolored or removed variables\n");
                     return;
                 }
                 else if(i_color != SPILLED && i_color == j_color)
                 {
-                    printf("coloring is invalid solution");
+                    printf("coloring is invalid solution\n");
                     return;
                 }
             }
         }
     }
+    printf("coloring is successful\n");
 }

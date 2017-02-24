@@ -16,7 +16,8 @@ void spill_variable()
     int max = 0;
     for(i = 0; i < num_of_nodes; i++)
     {
-        if(list_of_variables[i].neighbor_count > max)
+        //only spill variables if it needs to be colored(ie. not spilled already or removed)
+        if(list_of_variables[i].neighbor_count > max && list_of_variables[i].color == NO_COLOR)
         {
             max = list_of_variables[i].neighbor_count;
             index_of_max = i;
@@ -24,4 +25,13 @@ void spill_variable()
     }
     //spill that variable
     list_of_variables[index_of_max].color = SPILLED;
+
+    //update the neighbor count for variables adjacent to spilled variable
+    for(i = 0; i < num_of_nodes; i++)
+    {
+        if(CHECKBIT(index_of_max,i))
+        {
+            list_of_variables[i].neighbor_count--;
+        }
+    }
 }    

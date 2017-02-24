@@ -5,6 +5,8 @@
 #include "heuristic.h"
 #include "testAns.h"
 #include "spilling.h"
+#include "first_fit.h"
+#include "output.h"
 
 int main()
 {
@@ -22,14 +24,28 @@ int main()
     //here we should read in k 
     //for now we just hardcode to let k be 16(the number of temporary
     //register in mips assembly)
-    k = 15;
-
-    print_RIG();
+    k = 16;
 
     minimize_RIG(k);
+
+    //debug
     test_minimize_RIG();
-    spill_variable();
-    //test_ans();
+
+    //initialize non available color array
+    init_non_available_colors();
+    //perform first fit coloring until it returns 0(is successful)
+    while(first_fit_coloring())
+    {
+        reset_colors();
+        reset_queue();
+        spill_variable();
+    }
+       
+    //color the removed variables
+    color_removed(); 
+
+    test_ans();
+    print_colors();
 
     return 0;
 }

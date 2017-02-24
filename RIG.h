@@ -1,6 +1,8 @@
 #ifndef RIG_H
 #define RIG_H
 
+#include <stdint.h>
+
 //note these implement a flattened 2d array
 #define SETBIT(i,j) (RIG[(((i*num_of_nodes)+j)/32)] |= (1 << ((i*num_of_nodes+j)%32)) ) 
 #define CLEARBIT(i,j)   ( RIG[(((i*num_of_nodes)+j)/32)] &= ~(1 << ((i*num_of_nodes+j)%32)) )  
