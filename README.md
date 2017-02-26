@@ -21,3 +21,4 @@ node3-node2
 
 where nodes are labeled by their appearance on the lefthand side of an edge. So node1 would be 0, node 2 would be 1 and node 3 would be 2. Number of distinct nodes must be specified at the top, in this case it would be 3. Some test cases are contained in the test case folder. These were generated from a python script that was found from here https://gist.github.com/bwbaugh/4602818
 
+The default value of k is set to 10. To change this you can pass a new value as a command line argument to the program. For example you can run ./regalloc 20 < test_case/10n40e.txt and this will run the program on that test case with k = 20.
