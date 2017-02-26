@@ -8,7 +8,7 @@
 #include "first_fit.h"
 #include "output.h"
 
-int main()
+int main(int argc, char **argv)
 {
     init_RIG();
 
@@ -17,14 +17,21 @@ int main()
     str = (char *)malloc(MAXSTRINGSIZE * sizeof(char));
     fgets(str, MAXSTRINGSIZE, stdin);
     num_of_nodes = atoi(str);
+    free(str);
  
     create_RIG();
 
     
-    //here we should read in k 
-    //for now we just hardcode to let k be 16(the number of temporary
-    //register in mips assembly)
-    k = 16;
+    //here we read in k 
+    if(argc > 1)
+    {
+        k = atoi(argv[1]);
+    }
+    else
+    {
+        //default value of k
+        k = 10;
+    }
 
     minimize_RIG(k);
 
