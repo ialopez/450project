@@ -11,11 +11,13 @@ call make to compile, will compile to an executable called regalloc
 
 #input
 for the time being input is taken of in the form of
-'''
+
+```
 number of nodes
 node1-node3
 node2-node1
 node3-node2
-'''
-where nodes are labeled by their appearance on the lefthand side of an edge. So node1 would be 0, node 2 would be 1 and node 3 would be 2. number of distince nodes must be specified to so in this case it would be 3. Some test cases are contained in the test case folder. These were generated from a python script that was found from here https://gist.github.com/bwbaugh/4602818
+```
+
+where nodes are labeled by their appearance on the lefthand side of an edge. So node1 would be 0, node 2 would be 1 and node 3 would be 2. Number of distinct nodes must be specified at the top, in this case it would be 3. Some test cases are contained in the test case folder. These were generated from a python script that was found from here https://gist.github.com/bwbaugh/4602818
 
