@@ -165,7 +165,7 @@ void reset_colors()
     {
         if(list_of_variables[i].color >= 0)
         {
-            list_of_variables[i].color == NO_COLOR;
+            list_of_variables[i].color = NO_COLOR;
         }
     }
 }
@@ -189,7 +189,10 @@ void color_removed()
 
         if(list_of_variables[i].color == REMOVED)
         {
-            visit(i);
+            if(visit(i))
+            {
+                printf("color removed failed");
+            }
         }
     }
 }

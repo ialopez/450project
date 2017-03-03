@@ -36,7 +36,7 @@ int main(int argc, char **argv)
     minimize_RIG(k);
 
     //debug
-    test_minimize_RIG();
+    //test_minimize_RIG();
 
     //initialize non available color array
     init_non_available_colors();
